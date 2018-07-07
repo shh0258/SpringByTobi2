@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" /> <!-- 스트링이 아닌 클래스 형태이지만,자동으로 형변환 해줘서 오류 없음 -->
+        <property name="url" value="jdbc:mysql://localhost/Tobi?serverTimezone=UTC" />
+        <property name="username" value="root" />
+        <property name="password" value="test123" />
+    </bean>
+    <bean id="jdbcContext" class="JdbcContext">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="userDao" class="UserDao">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jdbcContext" ref="jdbcContext" />
+    </bean>
+</beans>
